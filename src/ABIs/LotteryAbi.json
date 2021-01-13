@@ -1,0 +1,372 @@
+{
+  "lotteryAbi": [
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "bettor",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes1",
+          "name": "challenges",
+          "type": "bytes1"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "answerBlockNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "BET",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "bettor",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes1",
+          "name": "challenges",
+          "type": "bytes1"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes1",
+          "name": "answer",
+          "type": "bytes1"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "answerBlockNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "DRAW",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "bettor",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes1",
+          "name": "challenges",
+          "type": "bytes1"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes1",
+          "name": "answer",
+          "type": "bytes1"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "answerBlockNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "FAIL",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "bettor",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes1",
+          "name": "challenges",
+          "type": "bytes1"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "answerBlockNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "REFUND",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "bettor",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes1",
+          "name": "challenges",
+          "type": "bytes1"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes1",
+          "name": "answer",
+          "type": "bytes1"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "answerBlockNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "WIN",
+      "type": "event"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address payable",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getPot",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "pot",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "bytes1",
+          "name": "challenges",
+          "type": "bytes1"
+        }
+      ],
+      "name": "betAndDistribute",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "result",
+          "type": "bool"
+        }
+      ],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "bytes1",
+          "name": "challenges",
+          "type": "bytes1"
+        }
+      ],
+      "name": "bet",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "result",
+          "type": "bool"
+        }
+      ],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "distribute",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "answer",
+          "type": "bytes32"
+        }
+      ],
+      "name": "setAnswerForTest",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "result",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "bytes1",
+          "name": "challenges",
+          "type": "bytes1"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "answer",
+          "type": "bytes32"
+        }
+      ],
+      "name": "isMatch",
+      "outputs": [
+        {
+          "internalType": "enum Lottery.BettingResult",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        }
+      ],
+      "name": "getBetInfo",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "answerBlockNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "bettor",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes1",
+          "name": "challenges",
+          "type": "bytes1"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}
