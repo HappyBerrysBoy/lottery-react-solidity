@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Web3 from "web3";
-import { lotteryAbi } from "./ABIs/LotteryAbi.json";
+import { lotteryAbi, pancakeSwapAbi } from "./ABIs/ABIs.json";
 
-const contractAddress = "0x3f108916137c33e88F41094943AbBE7757433b2a";
+const lotteryContractAddress = "0x3f108916137c33e88F41094943AbBE7757433b2a";
+const pancakeContractAddress = "0x73feaa1eE314F8c655E354234017bE2193C9E24E";
 
 class App extends Component {
   constructor(props) {
@@ -46,7 +47,12 @@ class App extends Component {
 
     this.lotteryContract = new this.web3.eth.Contract(
       lotteryAbi,
-      contractAddress
+      lotteryContractAddress
+    );
+
+    this.pancakeContract = new this.web3.eth.Contract(
+      pancakeSwapAbi,
+      pancakeContractAddress
     );
 
     // call : 스마트컨트랙트에서 컨트랙트 상태를 변경시키지 않는 값만 가져오는 경우 사용
@@ -150,7 +156,7 @@ class App extends Component {
     //   .subscribe(
     //     "logs",
     //     {
-    //       address: contractAddress,
+    //       address: lotteryContractAddress,
     //       topics: ["BET"],
     //     },
     //     function (error, result) {
@@ -183,7 +189,7 @@ class App extends Component {
     //   .subscribe(
     //     "logs",
     //     {
-    //       address: contractAddress,
+    //       address: lotteryContractAddress,
     //       topics: [
     //         this.web3.utils.sha3("BET(uint256,address,uint256,byte,uint256)"),
     //       ],
@@ -330,6 +336,34 @@ class App extends Component {
     //     // If the transaction was rejected by the network with a receipt, the second parameter will be the receipt.
     //     console.log("FAIL error:", error, ", FAIL receipt:", receipt);
     //   });
+  };
+
+  getPancakePool = async () => {
+    const pendingCake = await this.pancakeContract.methods
+      .pendingCake(0, "0x7B6Db723F329e201ed9e497918DEFF895a88dB16")
+      .call();
+
+    return pendingCake;
+  };
+
+  compoundPancake = async () => {
+    const pendingCake = await this.getPancakePool();
+
+    console.log(`pendingCake:${pendingCake}`);
+
+    let nonce = await this.web3.eth.getTransactionCount(this.account);
+
+    this.pancakeContract.methods
+      .enterStaking(pendingCake)
+      .send({
+        from: this.account,
+        gas: 300000,
+        gasPrice: 20 * 10 ** 9,
+        nonce: nonce,
+      })
+      .on("transactionHash", (hash) => {
+        console.log("transactionHash:" + hash);
+      });
   };
 
   bet = async () => {
@@ -507,6 +541,12 @@ class App extends Component {
         <div className="container">
           <button className="btn btn-danger btn-lg" onClick={this.bet}>
             BET!!
+          </button>
+          <button
+            className="btn btn-danger btn-lg"
+            onClick={this.compoundPancake}
+          >
+            Pancake!!
           </button>
         </div>
         <br></br>
